@@ -1,179 +1,229 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-    <meta name="google-site-verification" content="Mb62LT7wzauUY10NMbMwe49RClToeMo7mfQ23uE9BTk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>શ્રી શિવ શક્તિ જ્વેલરી અને મૂર્તિ</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* આખા બોડી માટે મૂળભૂત સેટિંગ્સ */
+        :root {
+            --primary-blue: #000428;
+            --secondary-blue: #004e92;
+            --gold: #FFD700;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --wine: #800020;
+        }
+
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #F0F0F0; /* સમગ્ર બોડીને ઓફ-વ્હાઇટ બેકગ્રાઉન્ડ */
+            margin: 0; padding: 0;
+            font-family: 'Noto Sans Gujarati', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: #333; line-height: 1.6; min-height: 100vh;
         }
 
-        /* પહેલો વિભાગ (હેડર) */
-        .section1 {
-            background-color: #000080; /* રોયલ બ્લુ */
-            color: #FFD700; /* લખાણનો કલર ગોલ્ડ */
-            padding: 30px;
-            text-align: center;
+        header {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--gold);
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .section1 h1 {
-            margin: 0;
-            font-size: 2.5em; 
+        header h1 { color: var(--gold); font-size: 2.2em; margin: 0 0 15px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+
+        .nav-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .nav-btn {
+            background: var(--gold); color: #000; padding: 10px 20px; border: none;
+            font-weight: bold; border-radius: 50px; transition: 0.3s; cursor: pointer; font-family: inherit;
         }
 
-        /* બીજો વિભાગ (મુખ્ય કન્ટેન્ટ) */
-        .section2 {
-            background-color: #F0F0F0; /* ઓફ-વ્હાઇટ */
-            color: #333; /* લખાણનો રંગ વાંચવામાં સરળ બને તે માટે ઘેરો કર્યો */
-            padding: 50px 10%; /* બાજુઓ પર જગ્યા (Full Width માટે) */
-        }
+        .content-section { display: none; padding: 40px 20px; max-width: 1100px; margin: 0 auto; animation: fadeIn 0.5s ease; }
+        .active-section { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* નેવિગેશન લિંક્સ */
-        .navigation {
-            margin-bottom: 30px;
-            text-align: center;
-        }
+        .glass-card { background: var(--glass-bg); padding: 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); margin-bottom: 30px; }
 
-        .navigation a {
-            color: #008000; /* ઘેરો લીલો */
-            margin-right: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
+        /* Catalog Grid */
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .product-card {
+            background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: 0.3s; border-top: 5px solid var(--gold); cursor: pointer;
         }
+        .product-card:hover { transform: translateY(-10px); }
+        .product-img { width: 100%; height: 250px; object-fit: contain; background: #fff; }
+        .product-info { padding: 20px; text-align: center; }
+
+        /* Modal (Popup) Styles */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto;
+        }
+        .modal-content {
+            background: #fff; margin: 5% auto; padding: 20px; width: 90%; max-width: 900px;
+            border-radius: 20px; position: relative; display: flex; flex-direction: column;
+        }
+        .close-modal { position: absolute; right: 20px; top: 10px; font-size: 35px; cursor: pointer; color: #333; }
         
-        /* પેટા શીર્ષકો (H2, H3) ને બર્ગન્ડી રંગ આપ્યો */
-        .section2 h2, .section2 h3 {
-            color: #800020; /* બર્ગન્ડી */
-            margin-top: 20px;
-        }
+        .modal-body { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+        .modal-img-container { flex: 1; min-width: 300px; text-align: center; }
+        .modal-main-img { width: 100%; max-height: 400px; object-fit: contain; border: 1px solid #eee; border-radius: 10px; }
+        .modal-details { flex: 1.2; min-width: 300px; }
+        
+        .feature-list { list-style: none; padding: 0; font-size: 0.9em; }
+        .feature-list li { margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
 
-        .section2 h1 { /* 'અમારી મુલાકાત લો' માટે */
-            color: #800020;
-            margin-top: 40px;
-            font-size: 1.8em;
-        }
+        /* Order Form */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; font-family: inherit; }
+        .btn-whatsapp { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 1.2em; font-weight: bold; cursor: pointer; }
 
-        /* નકશા માટેનું CSS (હવે મધ્યમાં અને મોટી પહોળાઈમાં) */
-        .map-container {
-            width: 100%; /* કન્ટેનરને પૂરી પહોળાઈ આપી */
-            max-width: 800px; /* નકશાની મહત્તમ પહોળાઈ નક્કી કરી */
-            margin: 20px auto; /* ઉપર/નીચે જગ્યા અને મધ્યમાં રાખવા માટે 'auto' */
-            border: 1px solid #ccc;
-            overflow: hidden; 
-        }
-
-        /* IFRAME ને 100% પહોળાઈ આપવા માટે */
-        .map-container iframe {
-            width: 100%; 
-            height: 450px; 
-            display: block;
-        }
-
-        /* ઉત્પાદન સૂચિ માટેના લખાણને વ્યવસ્થિત કરવા */
-        .product-list p {
-            margin-bottom: 15px;
-            line-height: 1.5;
-            padding-left: 10px;
-        }
+        footer { text-align: center; padding: 40px; color: white; opacity: 0.8; }
     </style>
 </head>
 <body>
 
-    <div class="section1">
-        <h1><b>શ્રી શિવ શક્તિ જવેલરી અને મૂર્તિ</b></h1>
+    <header>
+        <h1>શ્રી શિવ શક્તિ જ્વેલરી</h1>
+        <div class="nav-container">
+            <button class="nav-btn" onclick="showSection('home')">🏠 HOME</button>
+            <button class="nav-btn" onclick="showSection('products')">💎 PRODUCTS</button>
+            <button class="nav-btn" onclick="showSection('order')">🛒 ORDER NOW</button>
+        </div>
+    </header>
+
+    <div id="home" class="content-section active-section">
+        <div class="glass-card" style="text-align: center;">
+            <h2 style="color: var(--secondary-blue);">શ્રદ્ધા અને શિલ્પનું સંગમ</h2>
+            <p>"પાવન મૂર્તિઓ, અપ્રતિમ જ્વેલરી ડાઈસ અને કલાત્મક આભૂષણો"</p>
+        </div>
     </div>
 
-    <div class="section2">
-        
-        <div class="navigation">
-           <U> <a href="odrer.html">ORDER</a>
-            <a href="product.html">PRODUCT</a></U>
+    <div id="products" class="content-section">
+        <h2 style="text-align: center; color: white; margin-bottom: 30px;">અમારું કલેક્શન</h2>
+        <div class="catalog-grid">
+            
+            <div class="product-card" onclick="openProductModal('hanuman')">
+                <img src="C:\Users\DIPTI\OneDrive\Desktop\New folder (2)\HANUMAAN.png" class="product-img">
+                <div class="product-info">
+                    <h3>હનુમાન મૂર્તિ (બ્રાસ)</h3>
+                    <p style="color: green; font-weight: bold;">₹ 2000</p>
+                    <small>વધુ જાણવા માટે ક્લિક કરો</small>
+                </div>
+            </div>
+
+            </div>
+    </div>
+
+    <div id="order" class="content-section">
+        <div class="glass-card">
+            <h3 style="text-align: center; color: var(--wine);">ઓર્ડર ફોર્મ</h3>
+            <div id="selected-item" style="text-align:center; color:blue; font-weight:bold; margin-bottom:15px;"></div>
+            <form id="orderForm">
+                <div class="form-group"><label>નામ:</label><input type="text" id="name" required></div>
+                <div class="form-group"><label>WhatsApp નંબર:</label><input type="tel" id="phone" required></div>
+                <div class="form-group"><label>સરનામું:</label><textarea id="address" rows="3" required></textarea></div>
+                <div class="form-group"><label>ઓર્ડર વિગત:</label><textarea id="details" rows="2" required></textarea></div>
+                <button type="button" class="btn-whatsapp" onclick="sendWhatsApp()">✅ WhatsApp પર ઓર્ડર મોકલો</button>
+            </form>
         </div>
-        
-        <div class="hero-message">
-         
+    </div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modalImg" src="" class="modal-main-img">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle" style="color: var(--wine); margin-top:0;"></h2>
+                    <h3 id="modalPrice" style="color: green;"></h3>
+                    <p id="modalDesc"></p>
+                    <hr>
+                    <strong>મુખ્ય વિશેષતાઓ:</strong>
+                    <ul id="modalFeatures" class="feature-list"></ul>
+                    <button class="nav-btn" style="width:100%; margin-top:15px;" id="modalOrderBtn">આ મૂર્તિનો ઓર્ડર કરો</button>
+                </div>
+            </div>
         </div>
-<BR>
- શ્રદ્ધા અને શિલ્પનું સંગમ: પાવન મૂર્તિઓ, અપ્રતિમ જ્વેલરી ડાઈસ અને કલાત્મક આભૂષણો
-            <br>
-            શ્રી શિવ શક્તિ: ઉત્કૃષ્ટ જ્વેલરી કાસ્ટિંગ, જ્વેલરી ડાઈસ અને ભવ્ય સિલ્વર આભૂષણોના નિર્માતા
-            <br>
-            ગુણવત્તા, ચોકસાઇ અને સુંદરતાના ૧૦૦% વિશ્વાસ સાથે, અમે તમારી આધ્યાત્મિક અને વ્યાવસાયિક જરૂરિયાતોને પૂર્ણ કરીએ છીએ.
-            <br><br>
+    </div>
 
-        <h1>અમારી મુલાકાત લો</h1>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.03346993175!2d72.93923207431328!3d21.270142679446018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0468abfffffff%3A0xd920bce368b38485!2z4Kq44KuN4Kqf4Kq-4KqwIOCqruCqqOCri-CqsOCqpQ!5e0!3m2!1sgu!2sin!4v1763393971762!5m2!1sgu!2sin"
-                width="600"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-        <p>નકશાની મદદથી સરળતાથી અહીં પહોંચો.</p>
-        <p style="font-weight: bold;">Star Manorat, Kholvad, Surat, Gujarat</p>
-   
-અમારા વિશે સંક્ષિપ્તમાં
+    <footer>© 2024 શ્રી શિવ શક્તિ જ્વેલરી</footer>
 
-શ્રી શિવ શક્તિમાં, અમે માત્ર ઉત્પાદનો નહીં પણ વિશ્વાસ, કલા અને પરંપરાનું સર્જન કરીએ છીએ. મૂર્તિઓની પવિત્રતાથી લઈને જ્વેલરી કાસ્ટિંગની જટિલ ચોકસાઈ સુધી, અમારું દરેક કાર્ય ગુણવત્તા અને ઉત્કૃષ્ટતાનું પ્રતીક છે. અમે જ્વેલરી ઉદ્યોગને શ્રેષ્ઠ ડાઈસ અને કાસ્ટિંગ પ્રદાન કરવા સાથે, ભક્તો માટે સુંદર મૂર્તિઓ અને ગ્રાહકો માટે અપ્રતિમ સિલ્વર જ્વેલરીનું નિર્માણ કરીએ છીએ.
+    <script>
+        // પ્રોડક્ટ ડેટાબેઝ
+        const productData = {
+            'hanuman': {
+                title: 'હનુમાન મૂર્તિ (બ્રાસ)',
+                price: '₹ 2000',
+                img: 'C:\\Users\\DIPTI\\OneDrive\\Desktop\\New folder (2)\\HANUMAAN.png',
+                desc: 'આ ઉત્કૃષ્ટ બ્રાસની મૂર્તિ ભગવાન હનુમાનજીની ભવ્ય વીરતા અને સમર્પણનું પ્રતીક છે. આ મૂર્તિમાં બજરંગબલીને સંજીવની પર્વતને એક હાથમાં ઉંચકીને ગતિમાન મુદ્રામાં દર્શાવવામાં આવ્યા છે.',
+                features: [
+                    'સામગ્રી: ૧૦૦% શુદ્ધ બ્રાસ (પિત્તળ)',
+                    'મુદ્રા: સંજીવની પર્વત ધારણ કરેલી ગતિમાન મુદ્રા',
+                    'હથિયાર: એક હાથમાં ગદા (Mace) ધારણ કરેલી છે',
+                    'ઉપયોગ: પૂજા ખંડ, લિવિંગ રૂમ સજાવટ અથવા ભેટ માટે શ્રેષ્ઠ',
+                    'કારીગરી: પ્રીમિયમ ફિનિશિંગ અને બારીક કોતરણી'
+                ]
+            }
+        };
 
-મુખ્ય ઉત્પાદન શ્રેણીઓ<BR><BR>
+        function showSection(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
+            window.scrollTo(0,0);
+        }
 
-૧. પાવન મૂર્તિઓ (Idols): વિશેષતા: વિવિધ ધાતુઓ અને કદમાં બારીક કોતરણીવાળી, શાસ્ત્રોક્ત વિધિઓ અનુસાર મૂર્તિઓ.
-        <BR>
-        ૨. જ્વેલરી ડાઈસ (Jewelry Dies):  અત્યંત ચોકસાઈ અને ટકાઉપણું સાથે, જ્વેલરીના મોટા ઉત્પાદન માટે કસ્ટમ-મેડ ડાઈસ. 
-        <BR>
-        ૩. જ્વેલરી કાસ્ટિંગ (Jewelry Casting): સોના, ચાંદી અને અન્ય ધાતુઓમાં દોષરહિત અને જટિલ ડિઝાઇનનું ઉચ્ચ ગુણવત્તાનું કાસ્ટિંગ. 
-        <BR>
-        ૪. ટ્રેન્ડી જ્વેલરી (Jewelry):  આધુનિક અને પરંપરાગત ડિઝાઇનની સોના અને અન્ય ધાતુઓની જ્વેલરીની વિશાળ શ્રેણી. 
-        <BR>
-        ૫. સિલ્વર જ્વેલરી (Silver Jewelry): નવીનતમ ડિઝાઇન અને ઉચ્ચ શુદ્ધતાવાળી, આકર્ષક સિલ્વર જ્વેલરીનો સંગ્રહ.
-        <br><br>
-       <H3> તમારા માટે થોડી મૂર્તિઓ </H3>
+        function openProductModal(key) {
+            const p = productData[key];
+            document.getElementById('modalImg').src = p.img;
+            document.getElementById('modalTitle').innerText = p.title;
+            document.getElementById('modalPrice').innerText = p.price;
+            document.getElementById('modalDesc').innerText = p.desc;
+            
+            const featureList = document.getElementById('modalFeatures');
+            featureList.innerHTML = '';
+            p.features.forEach(f => {
+                const li = document.createElement('li');
+                li.innerText = '👉 ' + f;
+                featureList.appendChild(li);
+            });
 
-        
-           <DIV CLASS="product-card">
-    <DIV CLASS="image-gallery">
-        <img src="HANUMAAN.png " alt="હનુમાન મૂર્તિ: સામેનો દેખાવ">
-        <img src="hanuman left.png " alt="હનુમાન મૂર્તિ: ડાબી બાજુનો દેખાવ">
-        <img src="Screenshot 2025-10-28 210103.png " alt="હનુમાન મૂર્તિ: ઝીણવટભરી વિગત">
-    </DIV>
-    
-    <DIV CLASS="product-name"> હનુમાન મૂર્તિ</DIV>
-    <H2><B><p style="text-align: left;">discription<BR></B></H2>
-    
-    <p>આ ઉત્કૃષ્ટ બ્રાસની મૂર્તિ ભગવાન હનુમાનજીની ભવ્ય વીરતા અને સમર્પણનું પ્રતીક છે. આ મૂર્તિમાં બજરંગબલીને સંજીવની પર્વત (ડુંગર) ને એક હાથમાં ઊંચકીને ગતિમાન મુદ્રામાં (ઊડવાની તૈયારીમાં) દર્શાવવામાં આવ્યા છે, જે તેમની શક્તિ અને લક્ષ્ય પ્રત્યેની તેમની અડગતાનું પ્રતીક છે.</P>
-    
-    <p style="text-align: left;"><H2><B>મુખ્ય વિશેષતાઓ (Key Features)</B></H2></p> 
+            document.getElementById('modalOrderBtn').onclick = function() {
+                orderProduct(p.title + " (" + p.price + ")");
+                closeModal();
+            };
 
-    <ul style="text-align: left; list-style-type: none; padding-left: 0;">
-        <li>⩥ કલાત્મક સામગ્રી: ૧૦૦% શુદ્ધ બ્રાસ (પિત્તળ) માંથી બનાવેલી મૂર્તિ.</li>
-        <li>⩥ મુદ્રા (પોઝ): સંજીવની પર્વત ધારણ કરેલી ગતિમાન (ઊડવા માટે તૈયાર) મુદ્રા, જે હનુમાનજીની નિઃસ્વાર્થ સેવા અને બહાદુરી દર્શાવે છે.</li>
-        <li>⩥ હથિયાર: એક હાથમાં ગદા (Mace) ધારણ કરેલી છે, જે શક્તિ અને શાસનનું પ્રતીક છે.</li>
-        <li>⩥ ઉપયોગ: પૂજા ખંડ (મંદિર), લિવિંગ રૂમની સજાવટ, ઓફિસ ડેસ્ક અથવા ધ્યાન માટે આદર્શ.</li>
-        <li>⩥ કલા અને કારીગરી: ઉત્તમ કોતરણી અને બ્રાસ પરની ફાઇન ફિનિશિંગ, જે મૂર્તિને પ્રીમિયમ દેખાવ આપે છે.</li>
-        <li>⩥ ભેટ માટે શ્રેષ્ઠ: ધાર્મિક પ્રસંગો, તહેવારો, ગૃહપ્રવેશ (Housewarming) અથવા જન્મદિવસ માટે શ્રેષ્ઠ ભેટ વિકલ્પ.</li>
-    </ul>
+            document.getElementById('productModal').style.display = "block";
+        }
 
-    <BR><BR>
-    <DIV CLASS="product-price">₹ 2000 </DIV>
-    <a href="odrer.html" class="buy-button">ઓર્ડર કરો</a>
+        function closeModal() {
+            document.getElementById('productModal').style.display = "none";
+        }
 
-        
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('productModal')) {
+                closeModal();
+            }
+        }
 
-           </BODY>
-           </HTML>
-               
+        function orderProduct(name) {
+            document.getElementById('details').value = "પ્રોડક્ટ: " + name;
+            document.getElementById('selected-item').innerText = "પસંદ કરેલ: " + name;
+            showSection('order');
+        }
 
-
-
+        function sendWhatsApp() {
+            const n = document.getElementById('name').value;
+            const p = document.getElementById('phone').value;
+            const a = document.getElementById('address').value;
+            const d = document.getElementById('details').value;
+            if(!n || !p || !a || !d) { alert("બધી વિગતો ભરો!"); return; }
+            const msg = `*નવો ઓર્ડર*%0A👤 *નામ:* ${n}%0A📞 *ફોન:* ${p}%0A📍 *સરનામું:* ${a}%0A📝 *વિગત:* ${d}`;
+            window.open(`https://wa.me/918980370599?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
